@@ -34,11 +34,18 @@ data$Research <- as.factor(data$Research)  # Convert Research into a factor
 summary(data)
 
 # Visualization 1: Histogram of CGPA distribution
+
+#directory for plots
+if (!dir.exists("plots")) {
+  dir.create("plots")
+}
+
 p1 <- ggplot(data, aes(x = CGPA)) +
   geom_histogram(binwidth = 0.1, fill = "steelblue", color = "black", alpha = 0.7) +
   labs(title = "Distribution of CGPA", x = "CGPA", y = "Count") +
   theme_minimal()
 print(p1)
+ggsave("plots/cgpa_distribution.png", plot = p1, width = 8, height = 5)
 
 # Visualization 2: Scatter Plot of GRE Score vs. Chance of Admit
 p2 <- ggplot(data, aes(x = GRE.Score, y = Chance.of.Admit)) +
@@ -46,6 +53,7 @@ p2 <- ggplot(data, aes(x = GRE.Score, y = Chance.of.Admit)) +
   labs(title = "GRE Score vs. Chance of Admit", x = "GRE Score", y = "Chance of Admit") +
   theme_minimal()
 print(p2)
+ggsave("plots/GRE_distribution.png", plot = p2, width = 8, height = 5)
 
 # Visualization 3: Boxplot of TOEFL Score by Research Experience
 p3 <- ggplot(data, aes(x = Research, y = TOEFL.Score, fill = Research)) +
@@ -53,6 +61,7 @@ p3 <- ggplot(data, aes(x = Research, y = TOEFL.Score, fill = Research)) +
   labs(title = "TOEFL Score by Research Experience", x = "Research Experience", y = "TOEFL Score") +
   theme_minimal()
 print(p3)
+ggsave("plots/research_Exp_distribution.png", plot = p3, width = 8, height = 5)
 
 # Optional: Compute a correlation matrix for key numerical variables
 cor_matrix <- cor(data[, c("GRE.Score", "TOEFL.Score", "University.Rating", "SOP", "LOR", "CGPA", "Chance.of.Admit")])
@@ -114,6 +123,38 @@ evaluate_model <- function(actual, predicted, model_name = ""){
   return(list(RMSE = rmse, R2 = r2, MAE = mae))
 }
 
+# Create a results data frame for easier plotting
+results_df <- data.frame(
+  Actual = testData$Chance.of.Admit,
+  LM_Predicted = lm_predictions,
+  RF_Predicted = rf_predictions
+)
+
+# Plot 1: Linear Regression Predictions vs. Actual
+p_lm <- ggplot(results_df, aes(x = Actual, y = LM_Predicted)) +
+  geom_point(color = "blue", alpha = 0.6) +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "red") +
+  labs(title = "Linear Regression: Actual vs. Predicted",
+       x = "Actual Chance of Admit",
+       y = "Predicted Chance of Admit") +
+  theme_minimal()
+
+print(p_lm)
+ggsave("plots/lm_actual_vs_predicted.png", plot = p_lm, width = 7, height = 6)
+
+
+# Plot 2: Random Forest Predictions vs. Actual
+p_rf <- ggplot(results_df, aes(x = Actual, y = RF_Predicted)) +
+  geom_point(color = "green", alpha = 0.6) +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "red") +
+  labs(title = "Random Forest: Actual vs. Predicted",
+       x = "Actual Chance of Admit",
+       y = "Predicted Chance of Admit") +
+  theme_minimal()
+
+print(p_rf)
+ggsave("plots/rf_actual_vs_predicted.png", plot = p_rf, width = 7, height = 6)
+
 # Evaluate Linear Regression Model
 cat("Linear Regression Evaluation:\n")
 lm_metrics <- evaluate_model(testData$Chance.of.Admit, lm_predictions, "Linear Regression")
@@ -123,6 +164,8 @@ cat("Random Forest Evaluation:\n")
 rf_metrics <- evaluate_model(testData$Chance.of.Admit, rf_predictions, "Random Forest")
 
 # Optional: Residual Plots for Visual Diagnosis
+png("plots/residual_plots.png", width = 10, height = 5, units = "in", res = 300)
+
 par(mfrow = c(1, 2))
 plot(lm_predictions - testData$Chance.of.Admit,
      main = "Linear Regression Residuals",
@@ -135,8 +178,9 @@ plot(rf_predictions - testData$Chance.of.Admit,
      ylab = "Residuals", xlab = "Index",
      col = "green", pch = 16)
 abline(h = 0, col = "red", lwd = 2)
-par(mfrow = c(1, 1))
 
+# Close the device to finalize the file
+dev.off()
 ##############################
 # 6. Model Comparison & Recommendation
 ##############################
