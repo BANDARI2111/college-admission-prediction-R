@@ -1,0 +1,15 @@
+# History files
+.Rhistory
+.Rapp.history
+
+# Session Data
+.RData
+
+# User-specific files
+.Ruserdata
+
+# RStudio files
+.rstudio-project
+
+# Shiny token files for deployment
+rsconnect/
