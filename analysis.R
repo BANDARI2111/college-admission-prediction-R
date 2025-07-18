@@ -14,7 +14,7 @@ library(randomForest) # Random Forest modeling
 # Load the dataset from CSV.
 # The dataset should have columns:
 # Serial No., GRE Score, TOEFL Score, University Rating, SOP, LOR, CGPA, Research, Chance of Admit
-data <- read.csv("C:/Users/rohit/Downloads/student_data.csv",header = TRUE)
+data <- read.csv("data/student_data.csv",header = TRUE)
 
 # Remove the Serial No. column as it is not a predictor.
 data <- data %>% select(-Serial.No.)
