@@ -17,7 +17,7 @@ This project predicts a student's chance of college admission based on their pro
 
 1.  Clone the repository:
     ```bash
-    git clone [https://github.com/BANDARI2111/college-admission-prediction-R.git](https://github.com/BANDARI2111/college-admission-prediction-R.git)
+    git clone https://github.com/BANDARI2111/college-admission-prediction-R.git
     ```
 2.  Open the project in RStudio.
 3.  Install the required libraries:
