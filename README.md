@@ -1,19 +1,49 @@
 # College Admission Prediction Model
 
-## 🎯 Objective
-This project predicts a student's chance of college admission based on their profile, including GRE scores, TOEFL scores, and CGPA. It implements and compares two models: **Linear Regression** and **Random Forest**. An interactive prediction tool is also included as a Shiny app.
+This repository presents a robust data analysis pipeline to predict a student's probability of admission to a graduate program. The project leverages a comprehensive dataset of applicant profiles and compares two regression models—Linear Regression and Random Forest—to determine the most effective predictive approach.
 
-## ✨ Key Features
--   **Data Cleaning:** Handles missing values and prepares data for modeling.
--   **Exploratory Data Analysis (EDA):** Uses `ggplot2` and `plotly` to visualize data distributions and correlations.
--   **Statistical Inference:** A t-test is used to check for significant differences in CGPA between admitted and non-admitted students.
--   **Dual-Model Prediction:**
-    -   **Linear Regression:** A straightforward, interpretable model.
-    -   **Random Forest:** A powerful ensemble model for potentially higher accuracy.
--   **Model Evaluation:** Compares models using RMSE, R-squared, and MAE.
--   **Interactive Shiny App:** Allows users to input their own scores and get an instant admission chance prediction.
+## 🚀 Project Highlights
 
-## 🚀 How to Run
+* **Comprehensive EDA:** In-depth exploratory data analysis reveals key relationships between applicant scores and admission chances.
+* **Dual-Model Implementation:** Builds and evaluates both a classic Linear Regression model for interpretability and a powerful Random Forest model for predictive accuracy.
+* **Quantitative Evaluation:** Models are rigorously assessed using RMSE, R-squared, and MAE metrics on a dedicated test set.
+* **Interactive Application:** Includes a standalone Shiny app (`app.R`) for real-time admission predictions based on user-provided inputs.
+
+---
+## 📈 Analysis and Model Performance
+
+The analysis confirms that applicant metrics such as CGPA, GRE Score, and TOEFL Score are strong predictors of admission chance.
+
+### Key Visualizations
+
+| CGPA Distribution | GRE Score vs. Admission Chance | TOEFL Score by Research |
+| :---: | :---: | :---: |
+| ![CGPA Distribution](plots/cgpa_distribution.png) | ![GRE vs. Admit Chance](plots/GRE_distribution.png) | ![TOEFL by Research](plots/research_Exp_distribution.png) |
+
+### Model Diagnostics
+
+The plots below compare each model's predicted values against the actual values. The Random Forest model's predictions cluster more tightly around the ideal diagonal line, indicating superior performance.
+
+| Linear Regression (Actual vs. Predicted) | Random Forest (Actual vs. Predicted) |
+| :---: | :---: |
+| ![LM Actual vs. Predicted](plots/lm_actual_vs_predicted.png) | ![RF Actual vs. Predicted](plots/rf_actual_vs_predicted.png) |
+
+---
+## 🏆 Final Results & Recommendation
+
+The Random Forest model consistently outperformed Linear Regression, demonstrating a lower Root Mean Squared Error (RMSE) and a higher R-squared value.
+
+| Model | RMSE | R-squared | MAE |
+| :--- | :--- | :--- | :--- |
+| Linear Regression | 0.0632 | 0.8143 | 0.0451 |
+| **Random Forest** | **0.0594** | **0.8354** | **0.0415** |
+
+**Conclusion:** Due to its superior predictive accuracy, the **Random Forest model** is the recommended solution for this prediction task.
+
+---
+## ⚙️ Usage
+
+To run this project locally:
 
 1.  Clone the repository:
     ```bash
@@ -22,16 +52,7 @@ This project predicts a student's chance of college admission based on their pro
 2.  Open the project in RStudio.
 3.  Install the required libraries:
     ```R
-    install.packages(c("tidyverse", "ggplot2", "plotly", "caret", "randomForest", "shiny"))
+    install.packages(c("tidyverse", "caret", "randomForest", "shiny"))
     ```
-4.  Run `analysis.R` to see the full data analysis and model comparison.
-5.  Run `app.R` to launch the interactive Shiny prediction tool.
-
-## 📊 Model Comparison Results
-
-The models were evaluated on a held-out test set (20% of the data). The Random Forest model demonstrated slightly better performance with a lower RMSE, making it the recommended model for this task.
-
-| Model               | RMSE   | R-squared | MAE    |
-| ------------------- | ------ | --------- | ------ |
-| Linear Regression   | 0.0632 | 0.8143    | 0.0451 |
-| **Random Forest** | **0.0594** | **0.8354** | **0.0415** |
+4.  To run the full analysis and generate plots, execute the `analysis.R` script.
+5.  To launch the interactive prediction tool, execute the `app.R` script.
