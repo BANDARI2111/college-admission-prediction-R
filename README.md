@@ -2,6 +2,8 @@
 
 This repository presents a robust data analysis pipeline to predict a student's probability of admission to a graduate program. The project leverages a comprehensive dataset of applicant profiles and compares two regression models—Linear Regression and Random Forest—to determine the most effective predictive approach.
 
+[View the Live Deployed App](https://rohith1223.shinyapps.io/University-admission-predictor-R/)
+
 ## 🚀 Project Highlights
 
 * **Comprehensive EDA:** In-depth exploratory data analysis reveals key relationships between applicant scores and admission chances.
